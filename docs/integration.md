@@ -39,6 +39,88 @@ stages. Reset through the mission-completion button clears the mission.
 
 ## Registry and expansion
 
+### Bennu Research prototype
+
+Research currently supports Bennu only. Other destinations display an explicit
+unsupported-prototype message. Preparation and navigation are unchanged.
+The main flow currently provides no installed equipment; test playable Research
+at `/dev/stage.html?stage=research&destination=bennu`.
+
+`dev/researchFixture.js` is a temporary harness-only loadout injection. Research
+never imports it or fills an empty `selectedEquipment`. Provisional IDs and
+default instrument definitions live in `src/stages/research/config.js`.
+The fixture requires an explicit `{ freshDevelopmentState: true }` third argument
+from the development harness. It refuses nonempty selections, supplied catalogues
+(even empty catalogues), and states that already received a fixture. It cannot
+run implicitly during Research or replace a real loadout. Both Preparation stages
+are currently placeholders for equipment: neither selects instruments. The team
+still needs to agree which stage owns selection, stable equipment IDs, catalogue
+delivery, and the meaning of resource units. No Preparation code is changed here.
+To integrate real Preparation definitions, replace the default catalogue or pass
+JSON-compatible definitions in `stageData.researchEquipmentDefinitions` with
+`{ id, name, kind, watts, mb }`. Allowed Bennu kinds are `camera`, `infrared`,
+`lidar`, and `sample`. `selectedEquipment` must contain the matching real IDs.
+Then remove the development fixture injection. This adapter changes no gameplay.
+
+For this prototype, one energy unit is one Wh and one storage unit is one MB.
+Each action represents 60 simulated seconds, costing `watts * 60 / 3600` Wh
+and the configured MB. Existing balances are retained. Movement and returns have
+no energy cost. These are gameplay conventions, not historical specifications.
+Other stages must agree to these units before their resource gameplay is added.
+
+`stageData.research.bennu` stores position, cumulative trip distance, actions,
+return count, completion and mission timing/results. The map is now 1800 × 1200
+game metres and repeats in all directions. There is no distance cap, warning or
+automatic recall. `tripDistance` records actual movement across seams; it does not
+count the wrap as a teleport across the map. Voluntary animated returns remain.
+Returns reset position and trip distance, retaining tasks, discoveries, samples,
+and balances. Complete any one installed-instrument task to end the mission early.
+The five-minute timer starts at Start Exploring, continues across returns and
+background tabs, and ends in a results overlay. Expiry preserves partial results;
+it never fills in incomplete tasks. Only the results button calls `onComplete`.
+Set `stageData.researchSettings.missionDurationSeconds` before mount to configure
+the duration (default `bennu.missionDurationSeconds = 300` in `config.js`). The
+timer and phase live in `stageData.research.bennu.mission`. `completed` means the
+required science objective was achieved; core progression remains core-owned.
+Optional equipment definition `singleUse: true` is enforced and shown in the HUD.
+The existing 60-second action duration is a resource-cost convention; the short
+1.4-second operation animation is presentation time, not 60 seconds on the clock.
+Cancelled operations (recall or time expiry) do not consume resources or create
+findings. Successful operations revalidate equipment, proximity and resources.
+
+Research presentation is separated into `world.js` (cached procedural terrain,
+overhead rover, camera, effects and minimap), `style.css` (scoped HUD),
+`controls.js` (keyboard and multitouch), `motion.js` (acceleration/rotation),
+`mission.js` (clock and phase), and the existing `model.js` (science/resources).
+`topology.js` provides shared wraparound distances for motion, camera tracking,
+collisions, click hit tests, effects and nearby sites. The rover keeps velocity
+and heading across edges. The flag and site IDs remain fixed; repeating tiles
+are views of the same places, not new sites or reset tasks. This is a simplified
+game map, not a scientific model of Bennu's shape.
+
+The briefing introduces only installed tools, with short explanations and examples.
+At a site, E or a click/tap first opens a free information panel. It does not spend
+resources or reveal the finding. Recommended installed tools glow in the toolbar;
+missing tools are explained without adding them. Choose a tool and press E or the
+action button again to investigate. The panel closes with × or when driving away.
+All stage listeners, animation frames and resize observers are cleaned up.
+Discoveries are destination-qualified simulated observations, not laboratory
+identifications. Unanalysed samples use `materialId: 'unanalysed-regolith'`.
+The rover is explicitly an educational abstraction of spacecraft exploration.
+State remains in memory; refreshing still starts over.
+
+Manual checks: wait on the briefing and verify 05:00 is unchanged; begin and
+drive without clicking the canvas. WASD/arrows drive, 1–4 select, E looks closer
+then uses a tool. Hold two touch-pad directions for diagonal driving. Inspect and
+investigate all site types; try an inappropriate instrument; return voluntarily
+after an action and compare balances and log. Cross each edge in both directions,
+including corners; keep driving a full circuit and find the same red flag again.
+Check that findings, tasks, resource balances and the mission clock continue.
+Finish a task and inspect the returned
+state. Check the one-minute warning and final-30-second urgency, then expiry with
+unfinished tasks. Test `&equipment=camera` for partial tasks and `&equipment=` for no equipment.
+Photography alone completes with three distinct geological images (60 MB).
+
 `src/core/stageRegistry.js` is the ordered stage list. Each entry contains a unique
 `id`, a `title`, a `mount` function, a `location` (`earth` or `destination`), an
 optional stylesheet URL, and `requiresDestination`. Completing one stage loads
