@@ -2,8 +2,8 @@
 NASA Space Apps 2026 Hackathon Game
 
 Shared foundation for a browser game inspired by NASA, ESA, and JAXA missions.
-Stage gameplay is intentionally left to the three stage owners. The temporary
-screens exercise integration only; they are not the final design.
+Research includes a playable data-transmission prototype; the preparation
+screens remain integration placeholders.
 
 ## Run locally in VS Code
 
@@ -24,10 +24,16 @@ No installation or build is needed. A modern browser is required.
 2. Choose one in Preparation Part 1; completion is disabled until selection.
 3. Simulate completion. Preparation Part 2 still shows Earth and your destination.
 4. Complete Preparation Part 2. Research shows the selected destination as location.
-5. Expand **Inspect shared state** to check preserved destination, resources, and progress.
-6. Finish Research, return to Earth, and choose another destination. State is reset.
-7. Repeat with each destination. Check the browser developer console for errors.
-8. Test a stage independently at http://localhost:8000/dev/stage.html.
+5. In Research, collect a scan, open and cancel the signal console to verify no
+   resources change. Reopen it with the signal unlocked, then tune Frequency to
+   `1.14` and Phase to `35°` to lock and send data. Inspect the shared discoveries.
+6. Collect three scans to check the antenna size limit. Use **Development test
+   controls** to check insufficient energy, an unavailable relay, duplicate sends,
+   and loss of unsent scans on simulated failure.
+7. Expand **Inspect shared state** to check preserved destination, resources, and progress.
+8. Finish Research, start a new mission, and repeat with each destination. Check the
+   browser developer console for errors.
+9. Test a stage independently at http://localhost:8000/dev/stage.html.
 
 With Node.js 20 or newer installed, run the dependency-free automated checks:
 

@@ -7,8 +7,9 @@ Return a synchronous cleanup function that removes listeners, timers, animation
 frames, audio, and other resources. Do not change pages or import another stage
 to advance. The core decides the next stage. No framework or bundler is required.
 
-The initial stage files are integration placeholders, not proposed gameplay.
-Replace their implementation freely. Shared helpers in `src/ui/` are optional.
+Preparation Part 1 and Part 2 are integration placeholders. Research implements
+scan collection, a signal-tuning console, and data transmission. Shared helpers
+in `src/ui/` are optional.
 Scope CSS under `.stage-preparation1`, `.stage-preparation2`, `.stage-research`,
 or a similarly unique root for a new stage. Avoid selectors targeting `body`,
 all buttons, or another stage. Put assets in your assigned assets folder; use
@@ -36,6 +37,20 @@ starts over. Persistence and migrations can be added later without committing to
 a save format now. Increment the version and document migrations if shared field
 meanings change. Prefer additive fields and retain existing IDs to avoid breaking
 stages. Reset through the mission-completion button clears the mission.
+
+Research stores its unsent scans, transmitted findings, relay availability, and
+failure status in `stageData.research`. It uses `remainingEnergy` for both
+scanning and transmissions, and `remainingStorage` as available MB out of a
+100 MB prototype capacity. A successful send also records the finding in
+`scientificDiscoveries`; unsent scans are discarded by the Research failure
+simulation while transmitted findings remain.
+
+Preparation Part 2 can provide antenna details as
+`stageData.preparation2.antenna = { id, name, massKg, maxDataPerContactMb }`,
+plus optional `otherLoadoutMassKg` and `loadoutLimitKg`. Until then, Research
+uses the clearly labelled placeholder values in
+`src/stages/research/index.js`. Coordinate these field names and gameplay values
+with the Preparation Part 2 owner before replacing the placeholders.
 
 ## Registry and expansion
 
