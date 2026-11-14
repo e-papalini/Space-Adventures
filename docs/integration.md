@@ -7,11 +7,12 @@ Return a synchronous cleanup function that removes listeners, timers, animation
 frames, audio, and other resources. Do not change pages or import another stage
 to advance. The core decides the next stage. No framework or bundler is required.
 
-The initial stage files are integration placeholders, not proposed gameplay.
-Replace their implementation freely. Shared helpers in `src/ui/` are optional.
-Scope CSS under `.stage-preparation1`, `.stage-preparation2`, `.stage-research`,
-or a similarly unique root for a new stage. Avoid selectors targeting `body`,
-all buttons, or another stage. Put assets in your assigned assets folder; use
+Preparation Part 1 and Research remain integration placeholders. Preparation
+Part 2 is the Rover Building game in `src/stages/preparation2/rover-building/`;
+it uses the destination selected in Part 1 and adds the finalized payload to
+shared state. Shared helpers in `src/ui/` are optional. Scope CSS under a unique
+stage root. Avoid selectors targeting `body`, all buttons, or another stage.
+Put assets in your assigned assets folder; use
 `new URL('../../../assets/research/example.png', import.meta.url).href` in stage
 JavaScript to keep paths valid under GitHub Pages subdirectories.
 

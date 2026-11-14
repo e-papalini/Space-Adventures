@@ -2,8 +2,8 @@
 NASA Space Apps 2026 Hackathon Game
 
 Shared foundation for a browser game inspired by NASA, ESA, and JAXA missions.
-Stage gameplay is intentionally left to the three stage owners. The temporary
-screens exercise integration only; they are not the final design.
+Rover Building includes the payload-assembly game; Preparation Part 1 and
+Research remain integration placeholders.
 
 ## Run locally in VS Code
 
@@ -22,8 +22,8 @@ No installation or build is needed. A modern browser is required.
 
 1. Start a test mission. All five destinations are available.
 2. Choose one in Preparation Part 1; completion is disabled until selection.
-3. Simulate completion. Preparation Part 2 still shows Earth and your destination.
-4. Complete Preparation Part 2. Research shows the selected destination as location.
+3. Simulate completion. Rover Building opens with the selected destination.
+4. Build and authorize a valid payload. Research shows the destination as location.
 5. Expand **Inspect shared state** to check preserved destination, resources, and progress.
 6. Finish Research, return to Earth, and choose another destination. State is reset.
 7. Repeat with each destination. Check the browser developer console for errors.

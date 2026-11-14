@@ -34,13 +34,13 @@ const navigator = createNavigator({
   onError(problem) { error.textContent = problem.message; },
   onFinish(state) {
     stageContainer.append(element('h1', 'Integration sequence complete'));
-    stageContainer.append(element('p', `The placeholder mission to ${getDestination(state.selectedDestinationId).name} completed all registered stages.`));
+    stageContainer.append(element('p', `The mission to ${getDestination(state.selectedDestinationId).name} completed all registered stages.`));
     stageContainer.append(button('Return to Earth · start a new mission', () => navigator.start()));
   },
 });
 
 stageContainer.append(element('h1', 'Begin on Earth'));
-stageContainer.append(element('p', 'Test the foundation: choose any destination, complete both preparation placeholders, then enter Research.'));
+stageContainer.append(element('p', 'Test the foundation: choose a destination, build a rover payload, then enter Research.'));
 const list = element('ul');
 destinations.forEach(item => list.append(element('li', `${item.name} · ${item.mission.agency} ${item.mission.name}`)));
 stageContainer.append(list, button('Start test mission', () => navigator.start()));
