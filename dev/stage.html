@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Stage development harness</title></head>
+<body>
+  <h1>Isolated stage development</h1>
+  <p>This fixture bypasses progression only for independent testing. The main game enforces the full sequence.</p>
+  <form method="get">
+    <label>Stage <select name="stage" id="stage"></select></label>
+    <label>Destination <select name="destination" id="destination"></select></label>
+    <button>Load fixture</button>
+  </form>
+  <div id="stage-root"></div>
+  <h2>Completion result</h2><pre id="result">Complete the stage to inspect its result.</pre>
+  <script type="module" src="./stage.js"></script>
+</body>
+</html>

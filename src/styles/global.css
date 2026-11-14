@@ -1,0 +1,15 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #101827; color: #edf3ff; }
+body { margin: 0; }
+.app-header { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; padding: 1.25rem; border-bottom: 1px solid #526078; }
+.app-header a { color: inherit; font-weight: 700; text-decoration: none; }
+#app { max-width: 900px; margin: auto; padding: 1.5rem; }
+.app-stage { padding-block: 1rem 2rem; min-height: 18rem; }
+.app-status { color: #aedaff; }
+.app-error { color: #ffc7bf; }
+.app-debug { border-top: 1px solid #526078; padding-top: 1rem; }
+.app-debug pre { overflow: auto; font-size: 0.85rem; }
+/* Minimal defaults only: each stage owns its full visual treatment. */
+:where(button, select) { font: inherit; padding: 0.7rem 1rem; border: 1px solid #8ca2c0; border-radius: 0.4rem; }
+:where(button) { cursor: pointer; }
+:where(button:disabled) { cursor: default; opacity: 0.5; }
+:where(button, select, a, summary):focus-visible { outline: 3px solid #ffd578; outline-offset: 4px; }

@@ -1,0 +1,6 @@
+{
+  "name": "space-adventures",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test" }
+}
