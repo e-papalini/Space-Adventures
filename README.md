@@ -1,59 +1,31 @@
-# Space Adventures
-NASA Space Apps 2026 Hackathon Game
+# Outbound: Asteroid Flight
 
-Shared foundation for a browser game inspired by NASA, ESA, and JAXA missions.
-Stage gameplay is intentionally left to the three stage owners. The temporary
-screens exercise integration only; they are not the final design.
+A playable, browser-based flight-stage prototype for a larger asteroid exploration game. The stage begins at the handoff from Preparation Part 2, carries the selected destination through flight and landing, deploys a rover, and emits a result for the Research stage.
 
-## Run locally in VS Code
+## Play
 
-Open this folder in VS Code. From a terminal in the repository root run:
+Open `index.html` in a modern browser. No package install, build step, or server is required.
 
-```sh
-python -m http.server 8000 --bind 127.0.0.1
-```
+- `W` / `S`: accelerate / reverse
+- `A` / `D`: yaw
+- `Q` / `E`: roll
+- `Space` / `Left Ctrl`: climb / descend
+- `Shift`: temporary boost; uses extra fuel
+- Mouse: look around
+- `F`: attempt landing when inside the landing envelope
+- After touchdown, select **Deploy rover**; use `W` / `S` and `A` / `D` to drive, then press `E` near each marked site to survey
+- `↻`: restart the stage
 
-Open http://localhost:8000 in a browser. Stop the server with Ctrl+C.
-Alternatively use the VS Code Live Server extension on `index.html`.
-Do not open the HTML with `file://`: JavaScript modules need HTTP.
-No installation or build is needed. A modern browser is required.
+Movement has inertia: releasing thrust does not stop the spacecraft. Land with speed below 40 m/s, altitude below 65 m, and a suitable approach heading. Failed attempts explain which condition needs adjustment.
 
-## Verify the foundation
+## Stage integration
 
-1. Start a test mission. All five destinations are available.
-2. Choose one in Preparation Part 1; completion is disabled until selection.
-3. Simulate completion. Preparation Part 2 still shows Earth and your destination.
-4. Complete Preparation Part 2. Research shows the selected destination as location.
-5. Expand **Inspect shared state** to check preserved destination, resources, and progress.
-6. Finish Research, return to Earth, and choose another destination. State is reset.
-7. Repeat with each destination. Check the browser developer console for errors.
-8. Test a stage independently at http://localhost:8000/dev/stage.html.
+`src/stages.js` is the central progression contract. Its stage order is Earth, Preparation Part 1, Preparation Part 2, Flight, Research. It does not inspect branch names. The host game should record completed stage IDs and the selected destination centrally, then call `FlightStage.canEnter(context)` with `completedStages` containing `preparation-2` and a valid `destinationId`.
 
-With Node.js 20 or newer installed, run the dependency-free automated checks:
+The standalone page supplies that handoff for local play; it does not implement or replace either preparation stage. The flight stage returns `destinationId`, `landed`, `roverDeployed`, `surveys`, and `nextStage: 'research'` through `FlightStage.getResult()` and the `flightstagecomplete` event. All five destinations are selectable from the start.
 
-```sh
-npm test
-```
+The stage boundary is `window.FlightStage`; simulation modules are split by responsibility under `src/`: destination data, stage order, ship physics, scene rendering, mission state, HUD, and input/render loop. A future host can mount these modules in a shared shell while keeping its own visual design and mechanics for other stages.
 
-Tests cover destination data, mandatory progression, state preservation, rejected
-invalid updates, replay, a future stage, callback safety, and cleanup.
-Refresh intentionally resets this prototype; saving is not yet implemented.
+## Notes
 
-## Team integration
-
-Read [the integration contract](docs/integration.md) before replacing a placeholder.
-The flow is configured in `src/core/stageRegistry.js`. Shared science and sources
-live in `src/data/destinations.js`; stages use the same data for every destination.
-Stage owners work in their stage and asset folders. Shared changes are coordinated
-through small pull requests. More branches and stages can be added at any time.
-
-## GitHub and publishing
-
-Review the foundation files in VS Code Source Control, commit them, and push to
-the team's repository. Merge the foundation into `main` before teammates branch
-from it. Each stage can then be merged through its own pull request.
-
-For a public demo, publish these static files using GitHub Pages (repository
-Settings → Pages → Deploy from a branch → `main` → `/ (root)`) or another static
-host. No build or secrets are required. Relative module and asset paths support
-a repository subdirectory URL. Test the published URL with the browser checklist.
+This is a 2D canvas game with a projected depth/altitude axis, not a 3D simulator. Mission facts are concise gameplay context and should be checked against primary mission sources before public educational release. Engine audio is not included in this first playable slice.
