@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101619">
+  <title>Outbound | Asteroid Flight</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="wordmark" href="#" aria-label="Outbound home"><span class="mark">O</span> OUTBOUND <span class="wordmark-sub">FLIGHT SYSTEM</span></a>
+      <div class="mission-state"><span class="live-dot"></span><span id="mission-state">MISSION ACTIVE</span></div>
+      <button class="icon-button" id="reset-button" type="button" title="Restart flight" aria-label="Restart flight">↻</button>
+    </header>
+
+    <section class="game-layout" aria-label="Asteroid flight game">
+      <div class="flight-column">
+        <div class="scene-wrap">
+          <canvas id="scene" aria-label="Space flight view"></canvas>
+          <div class="scene-vignette"></div>
+          <div class="scene-headline">
+            <p class="eyebrow" id="scene-kicker">FLIGHT OPERATIONS / 01</p>
+            <h1 id="scene-title">Outbound</h1>
+            <p id="scene-subtitle">Rendezvous with your assigned target.</p>
+          </div>
+          <div class="reticle" aria-hidden="true"><i></i><b></b><i></i></div>
+          <div class="target-tag" id="target-tag"><span class="target-line"></span><span id="target-label">TARGET</span></div>
+          <div class="scene-readout scene-readout-left"><span>FLIGHT MODE</span><strong id="flight-mode">FREE DRIFT</strong></div>
+          <div class="scene-readout scene-readout-right"><span>SECTOR</span><strong>OUTBOUND / 04</strong></div>
+          <div class="message-banner" id="message-banner" aria-live="polite"></div>
+          <div class="landing-overlay" id="landing-overlay" hidden>
+            <div class="landing-card">
+              <p class="eyebrow">RENDEZVOUS WINDOW</p>
+              <h2 id="landing-title">Landing approach</h2>
+              <p id="landing-copy">Stabilize your velocity and bring the target into the landing envelope.</p>
+              <div class="landing-metrics"><span>SPEED <b id="landing-speed">0 m/s</b></span><span>ALTITUDE <b id="landing-altitude">0 m</b></span></div>
+              <button class="action-button" id="landing-action" type="button">Attempt landing <span>↗</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flight-footer">
+          <div class="stage-track" aria-label="Mission stages">
+            <div class="track-node done"><span>01</span><b>Prep 1</b></div>
+            <div class="track-line done"></div>
+            <div class="track-node done"><span>02</span><b>Prep 2</b></div>
+            <div class="track-line active"></div>
+            <div class="track-node active" id="flight-node"><span>03</span><b>Flight</b></div>
+            <div class="track-line"></div>
+            <div class="track-node" id="research-node"><span>04</span><b>Research</b></div>
+          </div>
+          <div class="stage-note"><span id="progress-label">01 / 04</span><span id="progress-detail">TARGET ACQUISITION</span></div>
+        </div>
+      </div>
+
+      <aside class="mission-panel" aria-label="Mission instruments">
+        <div class="panel-heading">
+          <div><p class="eyebrow">MISSION CONTROL</p><h2>Flight deck</h2></div>
+          <span class="panel-index">F-03</span>
+        </div>
+
+        <label class="field-label" for="destination-select">ASSIGNED DESTINATION</label>
+        <select id="destination-select" class="destination-select"></select>
+        <div class="destination-meta"><span id="destination-mission"></span><span id="destination-year"></span></div>
+
+        <div class="instrument-grid">
+          <section class="instrument speed-instrument">
+            <div class="instrument-label">VELOCITY <span>m/s</span></div>
+            <div class="speed-value"><strong id="speed-value">000</strong><small id="speed-axis">XYZ</small></div>
+            <div class="meter"><i id="speed-meter"></i></div>
+          </section>
+          <section class="instrument fuel-instrument">
+            <div class="instrument-label">PROPELLANT <span id="fuel-percent">100%</span></div>
+            <div class="fuel-value"><strong id="fuel-value">100</strong><small>%</small></div>
+            <div class="meter fuel-meter"><i id="fuel-meter"></i></div>
+          </section>
+        </div>
+
+        <section class="target-panel">
+          <div class="section-heading"><h3>Rendezvous</h3><span class="signal" id="target-signal">SEARCHING</span></div>
+          <div class="target-data"><div><span>RANGE</span><strong id="range-value">--.- <small>km</small></strong></div><div><span>ALTITUDE</span><strong id="altitude-value">-- <small>m</small></strong></div></div>
+          <div class="guidance-line"><span class="guidance-arrow" id="guidance-arrow">⌃</span><span id="guidance-text">Acquire target signal</span><span class="guidance-bearing" id="bearing-value">---°</span></div>
+        </section>
+
+        <section class="radar-section">
+          <div class="section-heading"><h3>Proximity radar</h3><span class="radar-range">± 2 KM</span></div>
+          <div class="radar-wrap"><canvas id="radar" width="240" height="120" aria-label="Nearby objects radar"></canvas><span class="radar-caption">RELATIVE POSITION</span></div>
+        </section>
+
+        <section class="stability-section">
+          <div class="section-heading"><h3>Landing stability</h3><strong id="stability-label">NOMINAL</strong></div>
+          <div class="stability-bar"><i id="stability-meter"></i><span></span></div>
+          <div class="stability-scale"><span>UNSTABLE</span><span>SAFE ENVELOPE</span></div>
+        </section>
+
+        <div class="destination-fact"><span class="fact-mark">i</span><p id="destination-fact">Mission data will appear here.</p></div>
+        <div class="panel-controls"><span>FLIGHT INPUT</span><span>WASD <i>·</i> SPACE <i>·</i> SHIFT</span></div>
+      </aside>
+    </section>
+
+    <footer class="bottom-bar">
+      <div class="control-hint"><kbd>W</kbd><kbd>S</kbd><span>THRUST</span><kbd>A</kbd><kbd>D</kbd><span>YAW</span><kbd>Q</kbd><kbd>E</kbd><span>ROLL</span><kbd>SPACE</kbd><kbd>CTRL</kbd><span>ALTITUDE</span></div>
+      <div class="bottom-status"><span>ROVER CARRIER</span><span class="status-separator">/</span><span>ALL SYSTEMS NOMINAL</span></div>
+    </footer>
+  </main>
+  <script src="src/destinations.js"></script>
+  <script src="src/stages.js"></script>
+  <script src="src/physics.js"></script>
+  <script src="src/scene.js"></script>
+  <script src="src/mission.js"></script>
+  <script src="src/hud.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>

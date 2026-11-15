@@ -1,2 +1,3 @@
-/* Stage owner: scope styles under .stage-preparation1. */
-.stage-preparation1 select { display: block; margin-block: 0.75rem; max-width: 100%; }
+@import url('../preparation2/rover-building/preparation1.css');
+#rover-building-root .earth-integration-note { position: absolute; bottom: 0; left: 20px; right: 20px; font: 12px system-ui; color: #b4c9cf; background: #07121de6; padding: 8px; pointer-events: none; }
+#rover-building-root { position: relative; }

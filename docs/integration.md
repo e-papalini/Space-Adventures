@@ -1,5 +1,10 @@
 # Integration contract · version 1
 
+The `integration-test` branch now connects five gameplay stages. See
+[gameplay integration](gameplay-integration.md) for the active flow, imported source
+versions, resource/equipment adapters and supported route (Bennu). The foundation
+notes below describe the original contract; gameplay is no longer placeholder UI.
+
 Every stage exports `mount(container, gameState, onComplete)` from its `index.js`.
 Render only inside `container`. The state is a private structured clone: edit it
 locally and call `onComplete(gameState)` once the agreed gameplay is complete.

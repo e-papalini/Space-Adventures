@@ -1,1 +1,118 @@
-/* Stage owner: scope styles under .stage-research. */
+.stage-research { --cyan: #7ee1df; --gold: #f4cf87; position: relative; isolation: isolate; width: 100%; height: min(850px, 93svh); min-height: 620px; overflow: hidden; background: #0b1620; color: #e7eeec; font: 13px/1.45 system-ui, sans-serif; border: 1px solid #607d815c; border-radius: 14px; box-sizing: border-box; box-shadow: 0 25px 70px #0005; }
+.stage-research * { box-sizing: border-box; }
+.stage-research [hidden] { display: none !important; }
+.stage-research .research-world { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+.stage-research .research-glass { background: linear-gradient(120deg, #0b1c29eb, #132b36c9); border: 1px solid #a2dbdd30; box-shadow: 0 6px 24px #0003; backdrop-filter: blur(12px); }
+.stage-research button { font: inherit; color: #e3eeec; background: #133443e0; border: 1px solid #8dbdb451; border-radius: 7px; padding: 9px 12px; cursor: pointer; transition: background .15s, border-color .15s; touch-action: manipulation; }
+.stage-research button:hover:not(:disabled) { background: #235262; border-color: var(--cyan); }
+.stage-research button:disabled { cursor: default; opacity: .45; }
+.stage-research :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.stage-research h1, .stage-research h2, .stage-research h3, .stage-research p { margin: 0; }
+.stage-research small { font-size: 10px; letter-spacing: .06em; color: #a7c0c4; }
+.stage-research .research-top { position: absolute; top: 14px; left: 14px; right: 14px; padding: 12px 16px; border-radius: 9px; display: flex; align-items: center; gap: 22px; }
+.stage-research .research-top h2 { font-size: 15px; letter-spacing: .1em; font-weight: 650; }
+.stage-research .research-top > div:first-child { margin-right: auto; }
+.stage-research .research-timer { font: 500 28px/1.1 ui-monospace, monospace; letter-spacing: .04em; color: #d7f4e6; }
+.stage-research .research-caution { color: var(--gold); }
+.stage-research .research-urgent { color: #ff7f8c; animation: research-pulse 1s infinite; }
+.stage-research .research-meter { display: grid; gap: 5px; font-size: 10px; letter-spacing: .05em; width: 130px; }
+.stage-research meter { width: 100%; height: 7px; border: 0; background: #26424c; border-radius: 8px; accent-color: #7ee1bd; }
+.stage-research meter::-webkit-meter-bar { height: 7px; border: 0; background: #26424c; }
+.stage-research meter::-webkit-meter-optimum-value { background: linear-gradient(90deg, #36a796, #b1e2a8); }
+.stage-research .research-side { position: absolute; top: 100px; left: 14px; width: 225px; border-radius: 9px; padding: 14px; max-height: calc(100% - 310px); overflow-y: auto; scrollbar-width: thin; }
+.stage-research h3 { font-size: 11px; letter-spacing: .12em; color: var(--gold); margin-bottom: 5px; }
+.stage-research .research-task { display: flex; align-items: center; gap: 10px; padding: 9px 0; font-size: 11px; border-bottom: 1px solid #9fcccc18; }
+.stage-research .research-task b { flex: 0 0 26px; color: var(--gold); font: 12px ui-monospace, monospace; }
+.stage-research .research-task-done { color: #a8e8c7; }
+.stage-research .research-task-done b { color: #87efbf; }
+.stage-research .research-task-unavailable { opacity: .45; }
+.stage-research .research-task-unavailable span::after { content: ' · Not equipped'; font-size: 9px; }
+.stage-research details { margin: 10px 0; font-size: 11px; color: #b7c9ca; }
+.stage-research summary { cursor: pointer; color: #a7d4d6; padding: 4px 0; }
+.stage-research details p { margin: 8px 0; }
+.stage-research .research-side button { display: block; width: 100%; font-size: 11px; margin-top: 8px; }
+.stage-research .research-trip { position: absolute; top: 100px; right: 14px; border-radius: 7px; padding: 7px 12px; font: 10px ui-monospace, monospace; color: #c0d3d5; }
+.stage-research .research-notice { position: absolute; top: 140px; left: 50%; transform: translateX(-50%); max-width: min(430px, 65%); padding: 10px 16px; border: 1px solid #ffce7d80; border-radius: 6px; color: #ffe0a6; text-align: center; font-size: 12px; }
+.stage-research .research-bottom { position: absolute; bottom: 14px; left: 14px; right: 14px; padding: 10px 14px; border-radius: 10px; }
+.stage-research .research-toolbar { display: flex; justify-content: center; gap: 8px; }
+.stage-research .research-toolbar button { display: grid; grid-template-columns: 30px 1fr; grid-template-rows: auto auto; text-align: left; gap: 1px 7px; align-items: center; padding: 7px 10px; flex: 1 1 0; max-width: 240px; font-size: 10px; }
+.stage-research .research-icon { grid-row: 1 / 3; font-size: 26px; color: #8dc3c7; text-align: center; }
+.stage-research .research-toolbar button[aria-pressed='true'] { border-color: #f2d08e; background: #76613b5c; box-shadow: 0 0 18px #f2c87615 inset; }
+.stage-research .research-toolbar button[aria-pressed='true'] .research-icon { color: #ffda8f; }
+.stage-research .research-toolbar button.research-compatible small { color: #90e5c1; }
+.stage-research .research-toolbar small { font-size: 9px; letter-spacing: 0; }
+.stage-research .research-interaction { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 9px; }
+.stage-research .research-context { color: #c0d2d5; font-size: 11px; }
+.stage-research .research-interaction button { flex-shrink: 0; color: #ffe4aa; border-color: #f1ce8966; }
+.stage-research progress { display: block; height: 5px; width: 100%; margin-top: 7px; accent-color: var(--cyan); }
+.stage-research .research-toast { position: absolute; right: 16px; top: 190px; width: min(330px, 40%); padding: 15px; border-radius: 9px; border-color: #79d8c673; pointer-events: none; animation: research-arrive .3s ease-out; }
+.stage-research .research-toast strong { display: block; margin-bottom: 6px; color: #a6efd4; }
+.stage-research .research-toast p { font-size: 12px; color: #c3d2d1; }
+.stage-research .research-photo { width: 150px; height: auto; border: 1px solid #d9ece3; margin-top: 10px; filter: contrast(1.15); }
+.stage-research .research-pad { position: absolute; bottom: 178px; left: 20px; display: grid; grid-template-columns: repeat(3, 43px); grid-template-rows: repeat(2, 43px); gap: 5px; touch-action: none; user-select: none; }
+.stage-research .research-pad button { background: #0d2435c9; border-color: #a0cdce60; font-size: 21px; padding: 0; touch-action: none; }
+.stage-research .research-pad button:active { background: #3a7277; }
+.stage-research .research-pad-up { grid-column: 2; }
+.stage-research .research-pad-left { grid-row: 2; grid-column: 1; }
+.stage-research .research-pad-down { grid-row: 2; grid-column: 2; }
+.stage-research .research-pad-right { grid-row: 2; grid-column: 3; }
+.stage-research .research-overlay { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; padding: 20px; background: #07111aca; backdrop-filter: blur(7px); }
+.stage-research .research-dialog { background: linear-gradient(140deg, #173341f2, #0b1b28fa); border: 1px solid #a9d3d457; box-shadow: 0 20px 80px #0006; border-radius: 15px; padding: clamp(20px, 4vw, 40px); width: min(620px, 100%); max-height: 100%; overflow-y: auto; }
+.stage-research .research-dialog h1 { font-size: clamp(24px, 4vw, 38px); line-height: 1.15; margin: 12px 0 18px; font-weight: 500; letter-spacing: -.03em; color: #ecf0e5; }
+.stage-research .research-dialog p { color: #bfcfce; margin: 14px 0; }
+.stage-research .research-dialog > button { margin-top: 15px; color: #112936; background: #d8dcb9; border-color: #eef2c9; padding: 12px 20px; font-weight: 650; }
+.stage-research .research-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.stage-research .research-summary > div { display: grid; padding: 10px; background: #e0f4e306; border: 1px solid #a5c6c222; border-radius: 5px; }
+.stage-research .research-summary strong { font-size: 17px; color: #dfecdc; }
+.stage-research .research-results li { font-size: 11px; margin: 5px 0; }
+.stage-research .research-reward { animation: research-reward .8s ease-out; }
+.stage-research .research-tool-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin: 12px 0; }
+.stage-research .research-tool-intro > div { position: relative; background: #9bd3c309; border: 1px solid #93c5c32b; border-radius: 7px; padding: 11px 11px 11px 42px; }
+.stage-research .research-tool-intro .research-icon { position: absolute; left: 10px; top: 9px; font-size: 24px; }
+.stage-research .research-tool-intro strong { font-size: 12px; color: #d8eee4; }
+.stage-research .research-tool-intro p { font-size: 12px; margin: 5px 0; }
+.stage-research .research-tool-intro small { font-size: 11px; line-height: 1.4; letter-spacing: 0; }
+.stage-research .research-inspection { position: absolute; bottom: 180px; right: 18px; width: min(370px, 44%); max-height: 340px; overflow-y: auto; padding: 16px; border-radius: 9px; border-color: #e7c9808c; }
+.stage-research .research-inspection h3 { padding-right: 25px; font-size: 14px; letter-spacing: 0; text-transform: none; }
+.stage-research .research-inspection p { margin-top: 8px; font-size: 12px; color: #d2dddd; }
+.stage-research .research-inspection p:last-child { color: #f2d999; }
+.stage-research .research-inspection-close { float: right; padding: 2px 9px; margin: -6px -6px 0 0; font-size: 20px; }
+.stage-research .research-toolbar button.research-recommended { box-shadow: 0 0 0 1px #8debc0, 0 0 15px #8debc033; }
+@keyframes research-pulse { 50% { opacity: .55; } }
+@keyframes research-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes research-reward { 30% { box-shadow: 0 0 30px #76f0ba60; border-color: #a5f4ca; } }
+@media (max-width: 700px) {
+  .stage-research { height: 92svh; min-height: 680px; border-radius: 8px; }
+  .stage-research .research-top { top: 8px; left: 8px; right: 8px; padding: 10px; gap: 9px; flex-wrap: wrap; }
+  .stage-research .research-top h2 { font-size: 11px; }
+  .stage-research .research-top small { font-size: 8px; }
+  .stage-research .research-timer { font-size: 25px; }
+  .stage-research .research-meter { width: calc(50% - 6px); font-size: 9px; }
+  .stage-research .research-side { top: 112px; left: 8px; width: 166px; padding: 9px; max-height: 285px; }
+  .stage-research .research-side > small { display: block; font-size: 9px; letter-spacing: 0; }
+  .stage-research .research-task { font-size: 9px; line-height: 1.25; gap: 3px; padding: 4px 0; }
+  .stage-research .research-task b { flex-basis: 22px; font-size: 10px; }
+  .stage-research .research-side button { padding: 6px; font-size: 10px; }
+  .stage-research .research-side details { font-size: 9px; }
+  .stage-research .research-trip { top: 112px; right: 8px; max-width: 45%; font-size: 8px; padding: 6px; }
+  .stage-research .research-notice { top: 410px; max-width: 90%; width: 90%; padding: 8px; font-size: 10px; }
+  .stage-research .research-bottom { bottom: 8px; left: 8px; right: 8px; padding: 8px; }
+  .stage-research .research-toolbar { gap: 4px; }
+  .stage-research .research-toolbar button { display: flex; flex-direction: column; padding: 6px 3px; font-size: 8px; text-align: center; min-width: 0; }
+  .stage-research .research-icon { font-size: 22px; line-height: 1.1; }
+  .stage-research .research-toolbar small { font-size: 8px; }
+  .stage-research .research-interaction { gap: 8px; }
+  .stage-research .research-context { font-size: 9px; max-height: 4.5em; overflow-y: auto; }
+  .stage-research .research-interaction button { padding: 10px 7px; font-size: 10px; }
+  .stage-research .research-pad { bottom: 170px; left: 14px; grid-template-columns: repeat(3, 46px); grid-template-rows: repeat(2, 46px); }
+  .stage-research .research-toast { top: 154px; right: 8px; width: calc(100% - 190px); max-height: 200px; padding: 9px; overflow: auto; pointer-events: auto; }
+  .stage-research .research-toast p { font-size: 10px; }
+  .stage-research .research-photo { width: 100%; }
+  .stage-research .research-dialog { padding: 20px; }
+  .stage-research .research-tool-intro { grid-template-columns: 1fr; }
+  .stage-research .research-inspection { top: 150px; bottom: auto; right: 8px; width: calc(100% - 190px); max-height: 280px; padding: 10px; }
+  .stage-research .research-inspection h3 { font-size: 12px; }
+  .stage-research .research-inspection p { font-size: 11px; }
+}
+@media (max-height: 550px) and (min-width: 701px) { .stage-research { min-height: 500px; } .stage-research .research-side { max-height: 235px; top: 90px; } .stage-research .research-pad { bottom: 150px; } }
+@media (prefers-reduced-motion: reduce) { .stage-research .research-urgent, .stage-research .research-reward, .stage-research .research-toast { animation: none; } }

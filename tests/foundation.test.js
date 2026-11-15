@@ -27,9 +27,13 @@ test('each destination follows Earth preparation, research, completion and a fre
     state.selectedEquipment.push('camera');
     state.stageData.preparation2 = { customChoice: 'test' };
     state = advanceState(state, state, stages, ids);
-    assert.equal(state.currentStage, 'research');
+    assert.equal(state.currentStage, 'flight');
     assert.equal(state.currentLocation, id);
+    state = advanceState(state, state, stages, ids);
+    assert.equal(state.currentStage, 'research');
     state.collectedSamples.push({ destinationId: id, materialId: 'test', quantity: 1 });
+    state = advanceState(state, state, stages, ids);
+    assert.equal(state.currentStage, 'transmission');
     state = advanceState(state, state, stages, ids);
     assert.equal(state.missionStatus, 'complete');
     assert.equal(state.selectedEquipment[0], 'camera');
@@ -58,7 +62,7 @@ test('missing destinations, skipped preparation, invalid resources and mid-missi
 test('a future stage needs only a registry entry', () => {
   const expanded = [...stages, { id: 'communication', location: 'destination', requiresDestination: true }];
   let state = { ...createGameState(), selectedDestinationId: 'bennu' };
-  for (let i = 0; i < 3; i++) state = advanceState(state, state, expanded, ids);
+  for (let i = 0; i < stages.length; i++) state = advanceState(state, state, expanded, ids);
   assert.equal(state.currentStage, 'communication');
   assert.equal(state.missionStatus, 'active');
   state = advanceState(state, state, expanded, ids);

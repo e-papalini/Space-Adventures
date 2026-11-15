@@ -33,14 +33,16 @@ const navigator = createNavigator({
   },
   onError(problem) { error.textContent = problem.message; },
   onFinish(state) {
-    stageContainer.append(element('h1', 'Integration sequence complete'));
-    stageContainer.append(element('p', `The placeholder mission to ${getDestination(state.selectedDestinationId).name} completed all registered stages.`));
+    stageContainer.append(element('h1', 'Mission complete'));
+    stageContainer.append(element('p', `Your mission to ${getDestination(state.selectedDestinationId).name} completed Earth preparation, rover building, flight, exploration and data transmission.`));
+    const data = state.stageData.research;
+    stageContainer.append(element('p', `${data?.transmittedFindings?.length ?? 0} data packets sent to Earth; ${data?.scans?.length ?? 0} remain onboard. Energy: ${state.remainingEnergy.toFixed(2)} Wh. Free storage: ${state.remainingStorage.toFixed(1)} MB.`));
     stageContainer.append(button('Return to Earth · start a new mission', () => navigator.start()));
   },
 });
 
-stageContainer.append(element('h1', 'Begin on Earth'));
-stageContainer.append(element('p', 'Test the foundation: choose any destination, complete both preparation placeholders, then enter Research.'));
+stageContainer.append(element('h1', 'Your mission starts on Earth'));
+stageContainer.append(element('p', 'Choose Bennu, build your scientific payload, fly to your destination, explore with your installed tools, then send your findings home. Bennu is the complete integrated route; the other destination games remain available for future integration.'));
 const list = element('ul');
 destinations.forEach(item => list.append(element('li', `${item.name} · ${item.mission.agency} ${item.mission.name}`)));
-stageContainer.append(list, button('Start test mission', () => navigator.start()));
+stageContainer.append(list, button('Start mission', () => navigator.start()));
