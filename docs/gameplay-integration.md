@@ -1,5 +1,9 @@
 # Integrated gameplay on integration-test
 
+Landing now starts automatically in a forgiving proximity zone. Saved points,
+replay-safe rewards and future level unlocks are described in
+[the progression foundation and expansion plan](progression-plan.md).
+
 ## Safety and provenance
 
 Backup branch: `backup/integration-test-before-gameplay-2026-11-15` at `49ca2c5`.
@@ -35,21 +39,24 @@ is needed. Do not use a file:// URL. Stop the server with Ctrl+C.
    click mounts (or drag and drop). Bennu's primary objective requires the
    infrared spectrometer. Mass, operating power, data and the assembly timer
    still use the original builder rules. Authorize a valid payload to continue.
-3. Flight: use the original WASD, Q/E, Space/Ctrl and Shift controls. Approach
-   Bennu, slow below 40 m/s, descend below 65 m, align with the approach vector,
-   and attempt landing. Completed landing automatically starts Exploration.
+3. Flight: use the original WASD, Q/E, Space/Ctrl and Shift controls. Fly toward
+   Bennu and hold within 450 m for four seconds. Leaving resets the countdown.
+   Landing then starts automatically, without a button or precise speed/heading.
 4. Exploration: Start Exploring, drive with WASD/arrows or the touch pad. E or
    tapping a nearby object opens free inspection. Choose a recommended installed
    tool, then use E/the action button again. Finish one available science task,
    end early, review results and continue. The five-minute timer also ends the
    expedition while preserving partial findings.
-5. Transmission: collected observations already appear as packets. Select one,
-   open the original tuning console, adjust frequency and phase to lock the
-   relay, and send. A reliable lock is frequency 1.14 and phase 35 degrees. Send
+5. Transmission: prepare a real observation with the tool that collected it.
+   Select its packet, open the tuning console, read the introduction and adjust
+   frequency and phase to match the waves. Accuracy updates live. A perfect
+   match is frequency 1.14 and phase 35 degrees; sending needs at least 50%. Send
    additional packets as resources permit, then Finish mission.
 
-The final screen reports sent and unsent packets. State is in memory: refresh
-starts a new mission. The shared state inspector shows each completed handoff.
+The final screen reports earned points and scientific achievements. Player
+progress is saved locally; refreshing starts the active expedition over but keeps
+points, best scores and completed mission history. The shared state inspector
+shows each handoff, including sent and unsent packets.
 
 ## Connections and state
 

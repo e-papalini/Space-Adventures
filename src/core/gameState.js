@@ -3,6 +3,7 @@ export const STATE_VERSION = 1;
 /** Fresh arrays and objects for every mission; no browser persistence yet. */
 export function createGameState(firstStage = 'preparation1') {
   return {
+    missionId: globalThis.crypto?.randomUUID?.() ?? `mission-${Date.now()}-${Math.random().toString(36).slice(2)}`,
     schemaVersion: STATE_VERSION,
     selectedDestinationId: null,
     currentLocation: 'earth',

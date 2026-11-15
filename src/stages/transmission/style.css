@@ -162,6 +162,20 @@
 .stage-transmission .research-complete { margin-top: 1rem; }
 .stage-transmission .research-complete p { margin: 0; color: #9ab0c9; font-size: 0.85rem; }
 .stage-transmission .research-muted { color: #9ab0c9; }
+.stage-transmission [hidden] { display: none !important; }
+.stage-transmission .relay-lesson { padding: 1.2rem; margin: 1rem 0; color: #c0d8eb; line-height: 1.6; border-left: 3px solid #ffca78; }
+.stage-transmission .relay-findings { display: grid; gap: 9px; margin-bottom: 14px; }
+.stage-transmission .relay-finding { display: grid; text-align: left; gap: 8px; padding: 12px; }
+.stage-transmission .relay-finding[aria-pressed='true'] { border-color: #ffca78; background: #233348; }
+.stage-transmission .relay-finding span { font-size: 12px; line-height: 1.5; color: #bad0e2; }
+.stage-transmission .relay-finding small { color: #9be6c7; }
+.stage-transmission .relay-tool-label { display: grid; gap: 7px; margin: 10px 0; }
+.stage-transmission .relay-tool-label select { max-width: 100%; background: #13243a; color: #e8f0fb; padding: 10px; border: 1px solid #35516d; border-radius: 6px; }
+.stage-transmission progress, .stage-transmission meter { width: 100%; height: 10px; accent-color: #67d6ff; }
+.stage-transmission .relay-accuracy { display: grid; gap: 10px; margin: 14px 0; color: #ffca78; font-size: 18px; }
+.stage-transmission .relay-summary { margin-top: 18px; }
+.stage-transmission .relay-summary dl>div { display: flex; justify-content: space-between; gap: 8px; padding: 9px 0; border-bottom: 1px solid #35516d; }
+.stage-transmission .relay-summary dd { white-space: nowrap; color: #9be6c7; }
 
 @media (max-width: 760px) {
   .stage-transmission .research-layout { grid-template-columns: 1fr; }

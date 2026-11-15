@@ -31,7 +31,7 @@ export function advanceState(current, proposed, stages, destinationIds) {
 }
 
 /** Stale callbacks are ignored. Cleanup runs before mounting another stage. */
-export function createNavigator({ container, stages, destinationIds, onStateChange, onFinish, onError }) {
+export function createNavigator({ container, stages, destinationIds, onStateChange, onFinish, onError, canSelectDestination = () => true }) {
   if (!stages.length || new Set(stages.map(stage => stage.id)).size !== stages.length) {
     throw new Error('Stage registry must contain unique IDs.');
   }
@@ -59,6 +59,9 @@ export function createNavigator({ container, stages, destinationIds, onStateChan
       queueMicrotask(() => {
         if (token !== generation) return;
         try {
+          if (state.currentStage === stages[0].id && !canSelectDestination(updated.selectedDestinationId)) {
+            throw new Error('This destination is locked or its mission is not ready yet. Choose an available destination on Earth.');
+          }
           state = advanceState(state, updated, stages, destinationIds);
         } catch (error) {
           onError(error);

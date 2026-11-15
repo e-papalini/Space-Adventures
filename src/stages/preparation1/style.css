@@ -1,3 +1,8 @@
 @import url('../preparation2/rover-building/preparation1.css');
 #rover-building-root .earth-integration-note { position: absolute; bottom: 0; left: 20px; right: 20px; font: 12px system-ui; color: #b4c9cf; background: #07121de6; padding: 8px; pointer-events: none; }
 #rover-building-root { position: relative; }
+#rover-building-root .earth-progress { margin: 0 0 16px; padding: 14px; border: 1px solid #7bd5dd40; background: #102b35a0; border-radius: 10px; }
+#rover-building-root .earth-progress h3 { font-size: 16px; color: #f0d18e; }
+#rover-building-root .earth-progress p { font-size: 12px; line-height: 1.5; }
+#rover-building-root .earth-progress progress { width: 100%; height: 8px; accent-color: #f0d18e; }
+#rover-building-root .preparation1__destination-info { overflow-y: auto; }

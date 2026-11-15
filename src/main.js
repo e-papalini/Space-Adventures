@@ -2,6 +2,8 @@ import { destinations, getDestination } from './data/destinations.js';
 import { stages } from './core/stageRegistry.js';
 import { createNavigator } from './core/navigation.js';
 import { element, button } from './ui/dom.js';
+import { progressStore, canStartDestination } from './core/progression.js';
+import { renderMissionResults } from './ui/missionResults.js';
 
 // Stage-local styles live with their stage. URLs remain relative on GitHub Pages.
 for (const stage of stages.filter(item => item.stylesheet)) {
@@ -23,6 +25,7 @@ debug.append(element('summary', 'Inspect shared state'), snapshot);
 app.append(status, error, stageContainer, debug);
 
 const navigator = createNavigator({
+  canSelectDestination: id => canStartDestination(id,progressStore.load()),
   container: stageContainer, stages, destinationIds: destinations.map(item => item.id),
   onStateChange(state) {
     error.textContent = '';
@@ -33,11 +36,7 @@ const navigator = createNavigator({
   },
   onError(problem) { error.textContent = problem.message; },
   onFinish(state) {
-    stageContainer.append(element('h1', 'Mission complete'));
-    stageContainer.append(element('p', `Your mission to ${getDestination(state.selectedDestinationId).name} completed Earth preparation, rover building, flight, exploration and data transmission.`));
-    const data = state.stageData.research;
-    stageContainer.append(element('p', `${data?.transmittedFindings?.length ?? 0} data packets sent to Earth; ${data?.scans?.length ?? 0} remain onboard. Energy: ${state.remainingEnergy.toFixed(2)} Wh. Free storage: ${state.remainingStorage.toFixed(1)} MB.`));
-    stageContainer.append(button('Return to Earth · start a new mission', () => navigator.start()));
+    renderMissionResults(stageContainer,state,()=>navigator.start());
   },
 });
 

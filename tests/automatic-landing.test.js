@@ -1,0 +1,34 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {readFileSync} from 'node:fs';
+
+test('landing requires four seconds in the closer zone, resets on exit, and descends without a button',()=>{
+  const elements=new Map();const node=()=>({textContent:'',hidden:false,setAttribute(){},after(){},style:{}});
+  const document={createElement:node,getElementById(id){if(!elements.has(id))elements.set(id,node());return elements.get(id);}};
+  const window={FlightPhysics:{update(){}},FlightHud:{update(){}}};
+  const context=vm.createContext({window,document});
+  vm.runInContext(readFileSync(new URL('../src/stages/flight/original/src/mission.js',import.meta.url),'utf8'),context);
+  vm.runInContext(readFileSync(new URL('../src/stages/flight/automaticLanding.js',import.meta.url),'utf8'),context);
+  const mission={state:'flight',world:{target:{x:0,y:0,z:0}},landingProgress:0};
+  const ship={x:1000,y:0,z:200,vx:180,vy:20,vz:50,yaw:Math.PI,throttle:1};
+  window.FlightMission.update(mission,ship,{},.04);assert.equal(mission.state,'flight');
+  ship.x=600;window.FlightMission.update(mission,ship,{},.04);assert.equal(mission.state,'flight');
+  ship.x=350;
+  for(let i=0;i<50;i++)window.FlightMission.update(mission,ship,{},.04);
+  assert.equal(mission.state,'flight');assert.ok(mission.approachSeconds>1.9);
+  window.FlightHud.update(mission,ship);assert.match(elements.get('guidance-text').textContent,/Landing approach/);
+  assert.equal(window.FlightMission.attemptLanding(mission,ship).ok,false);
+  ship.x=600;window.FlightMission.update(mission,ship,{},.04);assert.equal(mission.approachSeconds,0);
+  ship.x=350;
+  for(let i=0;i<99;i++)window.FlightMission.update(mission,ship,{},.04);
+  assert.equal(mission.state,'flight');
+  for(let i=0;i<2;i++)window.FlightMission.update(mission,ship,{},.04);
+  assert.equal(mission.state,'landing');assert.ok(ship.x<=350 && ship.x>349);
+  for(let i=0;i<20;i++)window.FlightMission.update(mission,ship,{},.04);
+  assert.ok(ship.x<350 && ship.x>0);assert.ok(ship.z<200 && ship.z>8);
+  for(let i=0;i<50;i++)window.FlightMission.update(mission,ship,{},.04);
+  assert.equal(mission.state,'landed');assert.equal(ship.x,0);assert.equal(ship.z,8);assert.equal(ship.vx,0);
+  window.FlightHud.update(mission,ship);assert.equal(elements.get('landing-action').hidden,true);
+  assert.equal(elements.get('landing-action').style.display,'none');
+});

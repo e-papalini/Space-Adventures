@@ -27,16 +27,19 @@ No installation or build is needed. A modern browser is required.
 1. Start a mission and choose Bennu on the Earth map.
 2. Begin Rover Building, install at least the infrared spectrometer, and authorize
    a valid payload. All original mass, power, data and timer rules apply.
-3. Fly using WASD, Q/E, Space/Ctrl and Shift. Follow the target guidance; approach
-   below 40 m/s and 65 m altitude, align, then attempt landing.
+3. Fly using WASD, Q/E, Space/Ctrl and Shift. Reach the 450 m landing zone and stay
+   there for four seconds. Leaving resets the countdown. Landing then starts by itself.
 4. Landing automatically opens Exploration. Start Exploring, drive to gold markers,
    inspect with E, choose an installed tool, then use E again to investigate.
 5. Complete one available task and end early, or let the five-minute timer expire.
    Continue from the results screen to Data Transmission.
-6. Open a collected packet's tuning console. Match the relay (frequency 1.14 and
-   phase 35 degrees gives a reliable lock), then send. Repeat as resources permit.
-7. Finish the mission. Inspect the shared state for preserved destination, equipment,
-   findings, samples, remaining energy and any unsent packets. Replay starts fresh.
+6. Start the onboard preparation activity, pick a real finding and match its
+   installed tool. Then open a prepared packet's console and start lining up the
+   waves. Accuracy updates live; frequency 1.14 / phase 35 degrees gives 100%.
+   Send at 50% or better and repeat as resources permit. Review the stage rewards.
+7. Finish the mission and review the score breakdown and saved total. Return to
+   Earth to replay; mission resources reset, but points and best scores persist.
+   Other level unlocks are recorded; unfinished missions stay unavailable.
 8. Independent stage testing remains at http://localhost:8000/dev/stage.html.
 
 With Node.js 20 or newer installed, run the dependency-free automated checks:
@@ -47,7 +50,10 @@ npm test
 
 Tests cover the foundation, rover movement, timer, science and resource rules,
 equipment integration, packet handoffs, transmission, progression and cleanup.
-Refresh intentionally resets this prototype; saving is not yet implemented.
+Player points, best scores and completed mission history now persist locally.
+The active expedition itself still starts over on refresh. See the
+[progression rules and destination expansion plan](docs/progression-plan.md).
+The current landing and relay rules are in [the mini-game guide](docs/landing-transmission.md).
 
 ## Team integration
 

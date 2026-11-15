@@ -9,6 +9,10 @@ body { margin: 0; }
 .app-debug { border-top: 1px solid #526078; padding-top: 1rem; }
 .app-debug pre { overflow: auto; font-size: 0.85rem; }
 /* Minimal defaults only: each stage owns its full visual treatment. */
+.mission-results { max-width: 850px; margin: 2rem auto; padding: 2rem; background: linear-gradient(140deg,#153543,#0d1b2a); border: 1px solid #7bd5dd60; border-radius: 16px; }
+.mission-results h2 { color: #f0d18e; }
+.mission-results li { margin: 8px 0; }
+.mission-results button { margin-top: 20px; background: #d8dfbc; color: #15313d; }
 :where(button, select) { font: inherit; padding: 0.7rem 1rem; border: 1px solid #8ca2c0; border-radius: 0.4rem; }
 :where(button) { cursor: pointer; }
 :where(button:disabled) { cursor: default; opacity: 0.5; }
